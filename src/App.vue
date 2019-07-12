@@ -83,6 +83,9 @@
         </v-layout>
       </v-container>
     </div>
+    <v-footer style="padding: 0 24px; justify-content: flex-end; margin-top: 15px;">
+      SITE DESIGNED BY <a style="margin-left: 5px;" href="https://command.dev/"> COMMAND DEVELOPMENT, LLC</a>
+    </v-footer>
   </v-app>
 </template>
 
