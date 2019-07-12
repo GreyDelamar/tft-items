@@ -22,6 +22,7 @@
             :key="item.id"
             sm4
             @click="filterItems($event)"
+            :data-name="item.display_name"
           >
             <v-card hover>
               <v-card-title primary-title class="item-card">
@@ -46,6 +47,7 @@
             :key="item.id"
             sm4
             @click="filterItems($event)"
+            :data-name="item.display_name"
           >
             <v-card hover style="height: 100%">
               <v-card-title primary-title class="item-card">
@@ -58,6 +60,7 @@
                       <img
                         class="combo-item-img"
                         :src="(items.filter(t => t.id === item.combos[0])[0] || {}).icon_img"
+                        @click.stop="filterItems($event, (items.filter(t => t.id === item.combos[0])[0] || {}).display_name)"
                       />
 
                       <span class="plus">+</span>
@@ -65,6 +68,7 @@
                       <img
                         class="combo-item-img"
                         :src="(items.filter(t => t.id === item.combos[1])[0] || {}).icon_img"
+                        @click.stop="filterItems($event, (items.filter(t => t.id === item.combos[1])[0] || {}).display_name)"
                       />
                     </div>
                   </v-flex>
@@ -206,8 +210,11 @@ export default {
     clear: function() {
       this.searchVal = "";
     },
-    filterItems: function(e) {
-      this.searchVal = e.target.closest(".item-container").id;
+    filterItems: function(e, name) {
+      console.log(name)
+      let searchVal = document.getElementsByClassName("search-box-input")[0].querySelectorAll("input")[0].value;
+      let targetVal = name ? name : e.target.closest(".item-container").dataset.name;
+      this.searchVal = searchVal === targetVal ? '' :  targetVal;
     },
     search: debounce(function(e) {
       const current_value = e.target ? e.target.value : e;
