@@ -231,6 +231,26 @@ export default {
             }
           });
 
+          basic_items.sort(function(a, b) {
+            var nameA = a.display_name.toUpperCase();
+            var nameB = b.display_name.toUpperCase();
+            if (nameA < nameB) return -1;
+
+            if (nameA > nameB) return 1;
+
+            return 0;
+          });
+
+          combined_items.sort(function(a, b) {
+            var nameA = a.display_name.toUpperCase();
+            var nameB = b.display_name.toUpperCase();
+            if (nameA < nameB) return -1;
+
+            if (nameA > nameB) return 1;
+
+            return 0;
+          });
+
           this.basic_items = basic_items;
           this.combined_items = combined_items;
         }
@@ -262,6 +282,26 @@ export default {
           } else {
             basic_items.push(h);
           }
+        });
+
+        basic_items.sort(function(a, b) {
+          var nameA = a.display_name.toUpperCase();
+          var nameB = b.display_name.toUpperCase();
+          if (nameA < nameB) return -1;
+
+          if (nameA > nameB) return 1;
+
+          return 0;
+        });
+
+        combined_items.sort(function(a, b) {
+          var nameA = a.display_name.toUpperCase();
+          var nameB = b.display_name.toUpperCase();
+          if (nameA < nameB) return -1;
+
+          if (nameA > nameB) return 1;
+
+          return 0;
         });
 
         this.items = data.hits;
