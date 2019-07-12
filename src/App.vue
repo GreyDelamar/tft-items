@@ -8,7 +8,7 @@
         placeholder="Search"
         solo
         @keyup="search($event)"
-        :value="searchVal"
+        v-model='searchVal'
       ></v-text-field>
     </v-flex>
     <div class="items-list">
@@ -20,7 +20,9 @@
             :id="item.id"
             v-for="item in basic_items"
             :key="item.id"
-            sm4
+            xs12
+            sm6
+            md4
             @click="filterItems($event)"
             :data-name="item.display_name"
           >
@@ -45,7 +47,9 @@
             :id="item.id"
             v-for="item in combined_items"
             :key="item.id"
-            sm4
+            xs12
+            sm6
+            md4
             @click="filterItems($event)"
             :data-name="item.display_name"
           >
@@ -83,6 +87,12 @@
 </template>
 
 <style lang="scss">
+body {
+  user-select: none;
+}
+input {
+  user-select: auto;
+}
 .items-list {
   padding-top: 35px;
 }
@@ -93,9 +103,7 @@
 }
 
 .item-info {
-  @media only screen and (max-width: 1200px) {
-    max-width: 280px;
-  }
+  max-width: calc(100% - 65px);
 }
 
 .item-img {
@@ -109,6 +117,11 @@
   padding: 6px;
   padding-left: 10px;
   padding-right: 10px;
+
+  @media only screen and (max-width: 850px) {
+    display: flex;
+    flex-direction: column;
+  }
 }
 
 .item-card .title {
@@ -164,6 +177,10 @@ img.combo-item-img {
   width: 32px;
 }
 
+.item-combo-container > img {
+    border-radius: 8px;
+}
+
 .plus {
   font-size: 22px;
 }
@@ -208,10 +225,9 @@ export default {
   name: "App",
   methods: {
     clear: function() {
-      this.searchVal = "";
+      this.searchVal = ""; 
     },
     filterItems: function(e, name) {
-      console.log(name)
       let searchVal = document.getElementsByClassName("search-box-input")[0].querySelectorAll("input")[0].value;
       let targetVal = name ? name : e.target.closest(".item-container").dataset.name;
       this.searchVal = searchVal === targetVal ? '' :  targetVal;
