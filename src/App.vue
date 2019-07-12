@@ -96,9 +96,12 @@ body {
 input {
   user-select: auto;
 }
+
 .items-list {
   padding-top: 35px;
+  min-height: calc(100vh - 50px);
 }
+
 .section-title {
   padding-bottom: 10px;
   margin-bottom: 10px;
