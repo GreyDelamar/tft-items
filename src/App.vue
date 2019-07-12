@@ -1,5 +1,5 @@
 <template>
-  <v-app dark id="app-container">
+  <v-app dark id="app-container" @keypress="hotKeyClear($event)">
     <v-flex xs12 class="search-box-container">
       <button class="clear-btn" @click="clear()">X</button>
       <v-text-field
@@ -13,7 +13,7 @@
     </v-flex>
     <div class="items-list">
       <v-container grid-list-md text-xs-center fluid v-if="basic_items.length > 0">
-        <h2 class="section-title">Base Items</h2>
+        <h2 class="section-title" @click="filterItems($event, 'Basic')" data-name="Basic">Base Items</h2>
         <v-layout row wrap>
           <v-flex
             class="item-container"
@@ -40,7 +40,7 @@
         </v-layout>
       </v-container>
       <v-container grid-list-md text-xs-center fluid v-if="combined_items.length > 0">
-        <h2 class="section-title">Combined Items</h2>
+        <h2 class="section-title" @click="filterItems($event, 'Combined')">Combined Items</h2>
         <v-layout row wrap>
           <v-flex
             class="item-container"
@@ -83,8 +83,9 @@
         </v-layout>
       </v-container>
     </div>
-    <v-footer style="padding: 0 24px; justify-content: flex-end; margin-top: 15px;">
-      SITE DESIGNED BY <a style="margin-left: 5px;" href="https://command.dev/"> COMMAND DEVELOPMENT, LLC</a>
+    <v-footer style="padding: 0 24px; justify-content: space-between; margin-top: 15px;">
+      <span>Ctrl + Bksp (Will clear the search)</span>
+      <span>Site Designed By <a style="margin-left: 5px;" href="https://command.dev/">Command Development, LLC</a></span>
     </v-footer>
   </v-app>
 </template>
@@ -197,6 +198,10 @@ img.combo-item-img {
   height: 48px;
   font-weight: 900;
   font-size: 22px;
+}
+
+h2 {
+  cursor: pointer;
 }
 </style>
 
@@ -340,11 +345,19 @@ export default {
     );
   },
   updated() {
+    const self = this;
     var val = document
       .getElementsByClassName("search-box-input")[0]
       .querySelectorAll("input")[0].value;
 
-    this.search(val);
+    self.search(val);
+
+    window.addEventListener("keydown", function(e) {
+      if (e && e.ctrlKey && e.key === "Backspace") {
+        e.preventDefault();
+        self.clear();
+      }
+    });
   }
 };
 </script>
