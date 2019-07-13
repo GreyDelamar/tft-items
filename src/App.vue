@@ -180,7 +180,6 @@ export default {
   },
   methods: {
     filterItems: function(event, name) {
-      console.log("CLICK");
       this.$store.dispatch("filterItems", { event, name });
     },
     searchItems: function(e) {
@@ -192,16 +191,16 @@ export default {
     }
   },
   computed: {
-    searchVal(state) {
+    searchVal() {
       return this.$store.state.searchVal;
     },
-    basic_items(state) {
+    basic_items() {
       return this.$store.state.basic_items;
     },
-    combined_items(state) {
+    combined_items() {
       return this.$store.state.combined_items;
     },
-    baseItems(state) {
+    baseItems() {
       return this.$store.state.baseItems;
     }
   },
