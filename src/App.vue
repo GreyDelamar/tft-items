@@ -13,19 +13,19 @@
     </v-flex>
     <div class="items-list">
       <v-container grid-list-md text-xs-center fluid v-if="basic_items.length > 0">
-        <h2 class="section-title" @click="filterItems($event, 'Basic')" data-name="Basic">Base Items</h2>
+        <div @click="filterItems($event, 'Basic')">
+          <h2 class="section-title">Base Items</h2>
+        </div>
         <v-layout row wrap>
-          <itemCard 
-            v-for="item in basic_items"
-            :key="item.id"
-            :item="item"
-          ></itemCard>
+          <itemCard v-for="item in basic_items" :key="item.id" :item="item"></itemCard>
         </v-layout>
       </v-container>
       <v-container grid-list-md text-xs-center fluid v-if="combined_items.length > 0">
-        <h2 class="section-title" @click="filterItems($event, 'Combined')">Combined Items</h2>
+        <div @click="filterItems($event, 'Combined')">
+          <h2 class="section-title">Combined Items</h2>
+        </div>
         <v-layout row wrap>
-          <itemCard 
+          <itemCard
             v-for="item in combined_items"
             :key="item.id"
             :item="item"
@@ -37,159 +37,180 @@
     </div>
     <v-footer style="padding: 0 24px; justify-content: space-between; margin-top: 15px;">
       <span>Ctrl + Bksp (Will clear the search)</span>
-      <span>Site Designed By <a style="margin-left: 5px;" href="https://command.dev/">Command Development, LLC</a></span>
+      <span>
+        Site Designed By
+        <a
+          style="margin-left: 5px;"
+          href="https://command.dev/"
+        >Command Development, LLC</a>
+      </span>
     </v-footer>
   </v-app>
 </template>
 
 <style lang="scss">
-  body {
-    user-select: none;
-  }
-  input {
-    user-select: auto;
-  }
+body {
+  user-select: none;
+}
+input {
+  user-select: auto;
+}
 
-  .items-list {
-    padding-top: 35px;
-    min-height: calc(100vh - 50px);
+.items-list {
+  padding-top: 35px;
+  min-height: calc(100vh - 50px);
+}
+
+.section-title {
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+  border-bottom: 1px #000 solid;
+}
+
+.item-info {
+  max-width: calc(100% - 65px);
+}
+
+.item-img {
+  border-radius: 10px;
+  height: 64px;
+  width: 64px;
+}
+
+.item-card {
+  justify-content: space-between;
+  padding: 6px;
+  padding-left: 10px;
+  padding-right: 10px;
+
+  @media only screen and (max-width: 850px) {
+    display: flex;
+    flex-direction: column;
   }
+}
 
-  .section-title {
-    padding-bottom: 10px;
-    margin-bottom: 10px;
-    border-bottom: 1px #000 solid;
-  }
+.item-card .title {
+  margin-bottom: 5px;
+  font-size: 18px !important;
+}
 
-  .item-info {
-    max-width: calc(100% - 65px);
-  }
+.item-card-actions {
+  padding-bottom: 0;
+}
 
-  .item-img {
-    border-radius: 10px;
-    height: 64px;
-    width: 64px;
-  }
+.item-stat {
+  flex: none;
+  width: 80px;
+}
 
-  .item-card {
-    justify-content: space-between;
-    padding: 6px;
-    padding-left: 10px;
-    padding-right: 10px;
+.item-stat p {
+  font-size: 12px;
+  margin-bottom: 5px;
+}
 
-    @media only screen and (max-width: 850px) {
-      display: flex;
-      flex-direction: column;
-    }
-  }
+.item-stat p:nth-child(2) {
+  font-size: 18px;
+  color: rgb(0, 211, 0);
+}
 
-  .item-card .title {
-    margin-bottom: 5px;
-    font-size: 18px !important;
-  }
+.searching .item-container.showing {
+  display: block;
+}
 
-  .item-card-actions {
-    padding-bottom: 0;
-  }
+.searching .item-container {
+  display: none;
+}
 
-  .item-stat {
-    flex: none;
-    width: 80px;
-  }
-
-  .item-stat p {
-    font-size: 12px;
-    margin-bottom: 5px;
-  }
-
-  .item-stat p:nth-child(2) {
-    font-size: 18px;
-    color: rgb(0, 211, 0);
-  }
-
-  .searching .item-container.showing {
-    display: block;
-  }
-
-  .searching .item-container {
+.search-box-container {
+  height: 76px;
+  position: fixed;
+  width: 100%;
+  z-index: 100;
+  display: flex;
+  max-height: 48px;
+  .v-text-field__details {
     display: none;
   }
-
-  .search-box-container {
-    height: 76px;
-    position: fixed;
-    width: 100%;
-    z-index: 100;
-    display: flex;
+  .v-input__slot {
+    margin-bottom: 0;
   }
+}
 
-  .item-combo-container {
-    display: flex;
-    justify-content: space-evenly;
-  }
+.item-combo-container {
+  display: flex;
+  justify-content: space-evenly;
+}
 
-  img.combo-item-img:last-child::before {
-    content: "+";
-  }
+img.combo-item-img:last-child::before {
+  content: "+";
+}
 
-  img.combo-item-img {
-    width: 32px;
-  }
+img.combo-item-img {
+  width: 32px;
+}
 
-  .item-combo-container > img {
-      border-radius: 8px;
-  }
+.item-combo-container > img {
+  border-radius: 8px;
+}
 
-  .plus {
-    font-size: 22px;
-  }
+.plus {
+  font-size: 22px;
+}
 
-  .clear-btn {
-    padding: 0px 18px;
-    background-color: #ff5252 !important;
-    height: 48px;
-    font-weight: 900;
-    font-size: 22px;
-  }
+.clear-btn {
+  padding: 0px 18px;
+  background-color: #ff5252 !important;
+  height: 48px;
+  font-weight: 900;
+  font-size: 22px;
+}
 
-  h2 {
-    cursor: pointer;
-  }
+h2 {
+  cursor: pointer;
+}
 </style>
 
 <script>
-import itemCard from './components/item-card.vue';
-// import store from './store';
+import itemCard from "./components/item-card.vue";
 
 export default {
   name: "App",
   components: {
-    itemCard,
+    itemCard
   },
   methods: {
-    filterItems: function (event, name) {
-      this.$store.dispatch('filterItems', event, name);
+    filterItems: function(event, name) {
+      console.log("CLICK");
+      this.$store.dispatch("filterItems", { event, name });
     },
-    searchItems: function (e) {
+    searchItems: function(e) {
       const val = e && e.target ? e.target.value : e;
-      this.$store.dispatch('searchItems', val);
+      this.$store.dispatch("searchItems", val);
     },
-    clear: function () {
-      this.$store.commit('clear');
+    clear: function() {
+      this.$store.commit("clear");
     }
   },
   computed: {
-    searchVal (state) { return this.$store.state.searchVal },
-    basic_items (state) { return this.$store.state.basic_items },
-    combined_items (state) { return this.$store.state.combined_items },
-    baseItems (state) { return this.$store.state.baseItems },
+    searchVal(state) {
+      return this.$store.state.searchVal;
+    },
+    basic_items(state) {
+      return this.$store.state.basic_items;
+    },
+    combined_items(state) {
+      return this.$store.state.combined_items;
+    },
+    baseItems(state) {
+      return this.$store.state.baseItems;
+    }
   },
   beforeCreate() {
-    this.$store.dispatch('searchItems');
+    this.$store.dispatch("searchItems");
   },
   watch: {
     searchVal(val) {
-      this.$store.dispatch('searchItems', val);
+      this.$store.dispatch("searchItems", val);
     }
   },
   updated() {

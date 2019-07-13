@@ -38,9 +38,8 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    searchItems: async function (context, e = '') {
+    searchItems: debounce(function (context, e = '') {
       const current_value = e && e.target ? e.target.value : e;
-
       searchConn.search({
         query: ("" + current_value).trim(),
         hitsPerPage: 100
@@ -58,16 +57,15 @@ export default new Vuex.Store({
               basic_items.push(h);
             }
           });
-          
+
           if (context.getters.baseItems.length === 0) context.commit('setBaseItems', basic_items);
           context.commit('setBasicItems', sortItems(basic_items));
           context.commit('setCombinedItems', sortItems(combined_items));
         });
-    },
-    filterItems: function ({commit}, e, name) {
-      debugger
+    }, 125),
+    filterItems: function ({ commit }, { event, name }) {
       let searchVal = document.getElementsByClassName("search-box-input")[0].querySelectorAll("input")[0].value;
-      let targetVal = name ? name : e.target.closest(".item-container").dataset.name;
+      let targetVal = name ? name : event.target.closest(".item-container").dataset.name;
 
       commit('setSearchVal', searchVal === targetVal ? '' : targetVal);
     },
