@@ -81,12 +81,11 @@ export default {
       return this.$store.state.currentSearchType;
     }
   },
-  // watch: {
-  //   searchVal(val) {
-  //     console.log("test");
-  //     this.$store.dispatch("search", val);
-  //   }
-  // },
+  watch: {
+    searchVal(val) {
+      this.$store.dispatch("search", val);
+    }
+  },
   updated() {
     const self = this;
 

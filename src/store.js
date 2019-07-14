@@ -97,7 +97,6 @@ export default new Vuex.Store({
       },
         (err, data) => {
           if (err) throw err;
-
           // Handel returned items search
           if (context.getters.currentSearchType === 'Items') {
             let basic_items = [];

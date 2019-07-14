@@ -45,8 +45,6 @@ export default {
       return this.$store.state.champions;
     },
     championTypeLists() {
-      console.log(this.$store.state.championTypeLists);
-      // sortItems;
       return this.$store.state.championTypeLists;
     }
   },
