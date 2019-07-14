@@ -14,8 +14,32 @@ export default new Vuex.Store({
     combined_items: [],
     baseItems: [],
     champions: [],
+    championTypeLists: {
+      "Assassin": [],
+      "Blademaster": [],
+      "Brawler": [],
+      "Elementalist": [],
+      "Guardian": [],
+      "Knight": [],
+      "Ranger": [],
+      "Shapeshifter": [],
+      "Sorcerer": [],
+      "Gunslinger": []
+    },
     searchVal: "",
-    searchTypes: ["Items", "Champions"]
+    searchTypes: ["Items", "Champions"],
+    championTypes: [
+      "Assassin",
+      "Blademaster",
+      "Brawler",
+      "Elementalist",
+      "Guardian",
+      "Knight",
+      "Ranger",
+      "Shapeshifter",
+      "Sorcerer",
+      "Gunslinger"
+    ]
   },
   getters: {
     currentSearchType: state => state.currentSearchType,
@@ -25,6 +49,8 @@ export default new Vuex.Store({
     baseItems: state => state.baseItems,
     champions: state => state.champions,
     searchTypes: state => state.searchTypes,
+    championTypes: state => state.championTypes,
+    championTypeLists: state => state.championTypeLists,
   },
   mutations: {
     clear: state => {
@@ -34,6 +60,9 @@ export default new Vuex.Store({
       state.currentSearchType = val;
     },
     setSearchVal: (state, val) => {
+      state.searchVal = val;
+    },
+    searchVal: (state, val) => {
       state.searchVal = val;
     },
     setBasicItems: (state, basic_items) => {
@@ -47,11 +76,20 @@ export default new Vuex.Store({
     },
     setChampions: (state, champions) => {
       state.champions = champions;
+    },
+    buildChampionTypeLists: (state, champion) => {
+      champion.class.forEach(type => {
+        state.championTypeLists[type].push(champion.display_name);
+      })
+
     }
   },
   actions: {
     search: debounce(function (context, e = '') {
       const current_value = e && e.target ? e.target.value : e;
+
+      if (context.getters.currentSearchType === 'Champions' && context.getters.champions.length > 0) return;
+
       searchConn.search({
         query: ("" + current_value).trim(),
         filters: context.getters.currentSearchType === 'Items' ? 'item' : 'champion',
@@ -78,7 +116,11 @@ export default new Vuex.Store({
           }
           // Handel returned champions search          
           else if (context.getters.currentSearchType === 'Champions') {
-            console.log(data.hits.length)
+            data.hits.forEach(c => {
+              context.commit('buildChampionTypeLists', c);
+            });
+
+
             context.commit('setChampions', data.hits);
           }
         });

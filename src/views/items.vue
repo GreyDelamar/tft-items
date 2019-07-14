@@ -36,6 +36,12 @@ export default {
   methods: {
     filterItems: function(event, name) {
       this.$store.dispatch("filterItems", { event, name });
+    },
+    clear: function() {
+      // document
+      //   .querySelectorAll(".search-box-container")[0]
+      //   .querySelectorAll("input")[0].value = "";
+      this.$store.commit("clear");
     }
   },
   computed: {
@@ -48,6 +54,9 @@ export default {
     baseItems() {
       return this.$store.state.baseItems;
     }
+  },
+  beforeRouteEnter(to, from, next) {
+    next(vm => vm.clear());
   },
   mounted() {
     this.$store.commit("setCurrentSearchType", "Items");

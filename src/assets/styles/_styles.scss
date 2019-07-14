@@ -137,3 +137,9 @@ body {
 .cd-body {
   min-height: calc(100vh - 51px);
 }
+
+.champ-img {
+  background-size: contain !important;
+  width: 35px;
+  height: 35px;
+}

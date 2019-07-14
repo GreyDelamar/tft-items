@@ -19,7 +19,7 @@
           placeholder="Search"
           solo
           @keyup="search($event)"
-          :value="searchVal"
+          v-model="searchVal"
         ></v-text-field>
         <button class="clear-btn" @click="clear()">X</button>
       </v-flex>
@@ -66,8 +66,13 @@ export default {
     }
   },
   computed: {
-    searchVal() {
-      return this.$store.state.searchVal;
+    searchVal: {
+      get() {
+        return this.$store.state.searchVal;
+      },
+      set(value) {
+        this.$store.commit("setSearchVal", value);
+      }
     },
     searchTypes() {
       return this.$store.state.searchTypes;
@@ -76,11 +81,12 @@ export default {
       return this.$store.state.currentSearchType;
     }
   },
-  watch: {
-    searchVal(val) {
-      this.$store.dispatch("search", val);
-    }
-  },
+  // watch: {
+  //   searchVal(val) {
+  //     console.log("test");
+  //     this.$store.dispatch("search", val);
+  //   }
+  // },
   updated() {
     const self = this;
 
