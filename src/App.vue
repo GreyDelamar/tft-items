@@ -3,9 +3,19 @@
     <header>
       <!-- MASTER SEARCH -->
       <v-flex xs12 class="search-box-container">
-        <v-menu offset-y>
+        <v-menu offset-y v-model="menuOpen">
           <template v-slot:activator="{ on }">
-            <button class="cd-btn" v-on="on">{{ currentSearchType }}</button>
+            <button class="cd-btn" v-on="on">
+              {{ currentSearchType }}
+              <v-icon
+                v-if="menuOpen"
+                style="position: absolute; right: 0; top: 12px;"
+              >keyboard_arrow_down</v-icon>
+              <v-icon
+                v-if="!menuOpen"
+                style="position: absolute; right: 0; top: 12px;"
+              >keyboard_arrow_up</v-icon>
+            </button>
           </template>
           <v-list>
             <v-list-tile v-for="(st, index) in searchTypes" :key="st + index" @click="route(st)">
@@ -52,7 +62,11 @@
 <script>
 export default {
   name: "App",
-  components: {},
+  data: () => {
+    return {
+      menuOpen: false
+    };
+  },
   methods: {
     search: function(e) {
       const val = e && e.target ? e.target.value : e;
