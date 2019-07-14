@@ -9,20 +9,29 @@ const searchConn = client.initIndex("tft");
 
 export default new Vuex.Store({
   state: {
+    currentSearchType: "Items",
     basic_items: [],
     combined_items: [],
     baseItems: [],
-    searchVal: ""
+    champions: [],
+    searchVal: "",
+    searchTypes: ["Items", "Champions"]
   },
   getters: {
+    currentSearchType: state => state.currentSearchType,
     searchVal: state => state.searchVal,
     basic_items: state => state.basic_items,
     combined_items: state => state.combined_items,
     baseItems: state => state.baseItems,
+    champions: state => state.champions,
+    searchTypes: state => state.searchTypes,
   },
   mutations: {
     clear: state => {
       state.searchVal = "";
+    },
+    setCurrentSearchType: (state, val) => {
+      state.currentSearchType = val;
     },
     setSearchVal: (state, val) => {
       state.searchVal = val;
@@ -35,32 +44,43 @@ export default new Vuex.Store({
     },
     setBaseItems: (state, baseItems) => {
       state.baseItems = baseItems;
+    },
+    setChampions: (state, champions) => {
+      state.champions = champions;
     }
   },
   actions: {
-    searchItems: debounce(function (context, e = '') {
+    search: debounce(function (context, e = '') {
       const current_value = e && e.target ? e.target.value : e;
       searchConn.search({
         query: ("" + current_value).trim(),
+        filters: context.getters.currentSearchType === 'Items' ? 'item' : 'champion',
         hitsPerPage: 100
       },
         (err, data) => {
           if (err) throw err;
 
-          let basic_items = [];
-          let combined_items = [];
+          // Handel returned items search
+          if (context.getters.currentSearchType === 'Items') {
+            let basic_items = [];
+            let combined_items = [];
 
-          data.hits.forEach(h => {
-            if (h.item_type === "combined") {
-              combined_items.push(h);
-            } else {
-              basic_items.push(h);
-            }
-          });
-
-          if (context.getters.baseItems.length === 0) context.commit('setBaseItems', basic_items);
-          context.commit('setBasicItems', sortItems(basic_items));
-          context.commit('setCombinedItems', sortItems(combined_items));
+            data.hits.forEach(h => {
+              if (h.item_type === "combined") {
+                combined_items.push(h);
+              } else {
+                basic_items.push(h);
+              }
+            });
+            if (context.getters.baseItems.length === 0) context.commit('setBaseItems', basic_items);
+            context.commit('setBasicItems', sortItems(basic_items));
+            context.commit('setCombinedItems', sortItems(combined_items));
+          }
+          // Handel returned champions search          
+          else if (context.getters.currentSearchType === 'Champions') {
+            console.log(data.hits.length)
+            context.commit('setChampions', data.hits);
+          }
         });
     }, 125),
     filterItems: function ({ commit }, { event, name }) {

@@ -1,0 +1,139 @@
+body {
+    user-select: none;
+  }
+  input {
+    user-select: auto;
+  }
+  
+  .items-list {
+    padding-top: 35px;
+    min-height: calc(100vh - 50px);
+  }
+  
+  .section-title {
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    border-bottom: 1px #000 solid;
+  }
+  
+  .item-info {
+    max-width: calc(100% - 65px);
+  }
+  
+  .item-img {
+    border-radius: 10px;
+    height: 64px;
+    width: 64px;
+  }
+  
+  .item-card {
+    justify-content: space-between;
+    padding: 6px;
+    padding-left: 10px;
+    padding-right: 10px;
+  
+    @media only screen and (max-width: 850px) {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+  
+  .item-card .title {
+    margin-bottom: 5px;
+    font-size: 18px !important;
+  }
+  
+  .item-card-actions {
+    padding-bottom: 0;
+  }
+  
+  .item-stat {
+    flex: none;
+    width: 80px;
+  }
+  
+  .item-stat p {
+    font-size: 12px;
+    margin-bottom: 5px;
+  }
+  
+  .item-stat p:nth-child(2) {
+    font-size: 18px;
+    color: rgb(0, 211, 0);
+  }
+  
+  .searching .item-container.showing {
+    display: block;
+  }
+  
+  .searching .item-container {
+    display: none;
+  }
+  
+  .search-box-container {
+    height: 76px;
+    position: fixed;
+    width: 100%;
+    z-index: 100;
+    display: flex;
+    max-height: 48px;
+    .v-text-field__details {
+      display: none;
+    }
+    .v-input__slot {
+      margin-bottom: 0;
+    }
+  }
+  
+  .item-combo-container {
+    display: flex;
+    justify-content: space-evenly;
+  }
+  
+  img.combo-item-img:last-child::before {
+    content: "+";
+  }
+  
+  img.combo-item-img {
+    width: 32px;
+  }
+  
+  .item-combo-container > img {
+    border-radius: 8px;
+  }
+  
+  .plus {
+    font-size: 22px;
+  }
+  
+  .clear-btn {
+    padding: 0px 18px;
+    background-color: #ff5252 !important;
+    height: 48px;
+    font-weight: 900;
+    font-size: 22px;
+    box-shadow: 0px 3px 1px -1px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12) !important;
+  }
+  
+  h2 {
+    cursor: pointer;
+  }
+
+.v-menu__content {
+  left : 0 !important;
+}
+
+.cd-btn {
+  min-width: 120px;
+  box-shadow: 0px 3px 1px -1px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12) !important;
+  background: #303030;
+}
+
+.v-input__slot {
+  box-shadow: 0px 3px 1px -1px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12) !important;
+  border-radius: 0px !important;
+}
+
+.cd-body {
+  min-height: calc(100vh - 51px);
+}
