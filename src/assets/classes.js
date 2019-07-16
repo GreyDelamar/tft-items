@@ -53,11 +53,11 @@ export default {
     },
     "guardian": {
         "name": "Guardian",
-        "description": null,
+        "description": "Adjacent allies receive bonus armor",
         "bonuses": [
             {
                 "needed": 2,
-                "effect": "At the start of combat, all Guardians and adjacent allies receive +30 armor"
+                "effect": "Adjacent allies receive armor +30 Armor"
             }
         ]
     },
@@ -99,11 +99,11 @@ export default {
         "bonuses": [
             {
                 "needed": 2,
-                "effect": "25% chance"
+                "effect": "25% chance to double attack speed"
             },
             {
                 "needed": 4,
-                "effect": "65% chance"
+                "effect": "65% chance to double attack speed"
             }
         ]
     },
