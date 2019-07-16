@@ -62,6 +62,8 @@
 </style>
 
 <script>
+console.log('HELLO');
+
 import tagSearch from "./components/tagSearch";
 
 export default {

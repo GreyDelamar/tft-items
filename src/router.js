@@ -19,6 +19,11 @@ export default new Router({
       path: '/champions',
       name: 'champions',
       component: Champions
+    },
+    {
+      // will match everything
+      path: '*',
+      redirect: '/'
     }
   ]
 })

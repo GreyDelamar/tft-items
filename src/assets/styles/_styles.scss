@@ -161,6 +161,17 @@ body {
     > .ti-tags {
       > .ti-tag {
         font-size: 13px;
+        margin-bottom: auto;
+        margin-top: auto;
+        position: relative;
+        background: #7a7a7a;
+        color: #fff;
+        height: 75%;
+        margin-top: auto;
+        margin-bottom: auto;
+        ::first-letter { 
+          text-transform: uppercase;
+        }
       }
       
       > .ti-new-tag-input-wrapper {
@@ -168,7 +179,7 @@ body {
         margin: 0;
 
         input {
-          font-size: 16px;
+          font-size: 13px;
           font-weight: 400;
         }
       }
@@ -196,18 +207,6 @@ body {
   font-weight: 400 !important;
 }
 
-.vue-tags-input .ti-tag {
-  position: relative;
-  background: #7a7a7a;
-  color: #fff;
-  font-size: 16px;
-  height: 75%;
-  margin-top: auto;
-  margin-bottom: auto;
-  ::first-letter { 
-    text-transform: uppercase;
-  }
-}
 
 .ti-autocomplete {
   background-color: #424242 !important;
