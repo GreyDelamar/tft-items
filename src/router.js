@@ -16,11 +16,6 @@ export default new Router({
       component: Items
     },
     {
-      path: '/items',
-      name: 'items2',
-      component: Items
-    },
-    {
       path: '/champions',
       name: 'champions',
       component: Champions

@@ -82,8 +82,10 @@ export default {
     clear: function() {
       this.$store.commit("clear");
     },
-    route: function(route) {
-      this.$router.push(route);
+    route: function(r) {
+      r = r.toLowerCase();
+      r = r !== 'items' ? r : '/'
+      this.$router.push(r);
     }
   },
   computed: {
