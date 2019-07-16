@@ -1,5 +1,8 @@
 body {
     user-select: none;
+    small {
+      font-size: 75%;
+    }
   }
   input {
     user-select: auto;
@@ -164,9 +167,9 @@ body {
         margin-bottom: auto;
         margin-top: auto;
         position: relative;
-        background: #7a7a7a;
+        background-color: #7a7a7a;
         color: #fff;
-        height: 75%;
+        height: 80%;
         margin-top: auto;
         margin-bottom: auto;
         ::first-letter { 
@@ -219,4 +222,24 @@ body {
     }
   }
 }
-// 
+
+$color: #303030;
+
+.bonus_0 {
+  background-color: lighten($color, 15%);
+}
+.bonus_1 {
+  background-color: lighten($color, 30%);
+}
+.bonus_2 { 
+  background-color: lighten($color, 45%);
+}
+.bonus_3 {
+  background-color: lighten($color, 60%);
+}
+
+
+.v-image__image.v-image__image--cover {
+  height: 15px !important;
+  width: 20px !important;
+}
