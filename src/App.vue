@@ -24,13 +24,15 @@
           </v-list>
         </v-menu>
         <v-text-field
+          v-if="currentSearchType === 'Items'"
           class="search-box-input"
           label="Solo"
-          placeholder="Search"
+          placeholder="Search Items"
           solo
           @keyup="search($event)"
           v-model="searchVal"
         ></v-text-field>
+        <tagSearch v-if="currentSearchType !== 'Items'"></tagSearch>
         <button class="clear-btn" @click="clear()">X</button>
       </v-flex>
     </header>
@@ -60,8 +62,13 @@
 </style>
 
 <script>
+import tagSearch from "./components/tagSearch";
+
 export default {
   name: "App",
+  components: {
+    tagSearch
+  },
   data: () => {
     return {
       menuOpen: false

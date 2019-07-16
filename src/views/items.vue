@@ -55,12 +55,9 @@ export default {
       return this.$store.state.baseItems;
     }
   },
-  beforeRouteEnter(to, from, next) {
-    next(vm => vm.clear());
-  },
   mounted() {
     this.$store.commit("setCurrentSearchType", "Items");
-    this.$store.dispatch("search");
+    this.$store.dispatch("search", this.$store.state.searchVal);
   }
 };
 </script>

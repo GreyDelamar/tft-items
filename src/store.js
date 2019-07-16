@@ -1,5 +1,9 @@
 import Vuex from 'vuex'
 import Vue from 'vue'
+import classes from "./assets/classes.js";
+import champions from "./assets/champions.js";
+import classChamps from "./assets/classChamps.js";
+import { createTag, createTags } from '@johmun/vue-tags-input';
 
 Vue.use(Vuex)
 
@@ -7,39 +11,27 @@ Vue.use(Vuex)
 const client = algoliasearch("HH28PKONWC", "f4b07580d6551b52c3128da9e8a74426");
 const searchConn = client.initIndex("tft");
 
+
+// Possibly start with all the tags in the list first
+let currentTags = [];
+for (const key in classes) {
+  currentTags.push(createTag(key, currentTags));
+}
+
 export default new Vuex.Store({
   state: {
     currentSearchType: "Items",
     basic_items: [],
     combined_items: [],
     baseItems: [],
-    champions: [],
-    championTypeLists: {
-      "Assassin": [],
-      "Blademaster": [],
-      "Brawler": [],
-      "Elementalist": [],
-      "Guardian": [],
-      "Knight": [],
-      "Ranger": [],
-      "Shapeshifter": [],
-      "Sorcerer": [],
-      "Gunslinger": []
-    },
     searchVal: "",
     searchTypes: ["Items", "Champions"],
-    championTypes: [
-      "Assassin",
-      "Blademaster",
-      "Brawler",
-      "Elementalist",
-      "Guardian",
-      "Knight",
-      "Ranger",
-      "Shapeshifter",
-      "Sorcerer",
-      "Gunslinger"
-    ]
+    champions,
+    classes,
+    showingClasses: classes,
+    currentTags,
+    classChamps,
+    tag: ""
   },
   getters: {
     currentSearchType: state => state.currentSearchType,
@@ -49,12 +41,13 @@ export default new Vuex.Store({
     baseItems: state => state.baseItems,
     champions: state => state.champions,
     searchTypes: state => state.searchTypes,
-    championTypes: state => state.championTypes,
-    championTypeLists: state => state.championTypeLists,
+    classes: state => state.classes,
+    currentTags: state => state.currentTags,
   },
   mutations: {
     clear: state => {
-      state.searchVal = "";
+      if (state.currentSearchType === 'Items') state.searchVal = "";
+      else state.currentTags = [];
     },
     setCurrentSearchType: (state, val) => {
       state.currentSearchType = val;
@@ -74,21 +67,29 @@ export default new Vuex.Store({
     setBaseItems: (state, baseItems) => {
       state.baseItems = baseItems;
     },
-    setChampions: (state, champions) => {
-      state.champions = champions;
+    setShowingClasses: (state, classes) => {
+      state.showingClasses = classes;
     },
-    buildChampionTypeLists: (state, champion) => {
-      champion.class.forEach(type => {
-        state.championTypeLists[type].push(champion.display_name);
-      })
+    currentTags: (state, tags) => {
+      state.currentTags = tags;
+    },
+    addOrRemoveTag: (state, tag) => {
+      if (state.showingClasses.hasOwnProperty(tag) && Object.keys(state.currentTags).length) {
+        let tp = { ...state.showingClasses };
+        delete tp[tag];
 
+        state.showingClasses = tp;
+
+        state.currentTags = state.currentTags.filter(el => el.text !== tag);
+      }
+      else {
+        state.currentTags.push(createTag(tag, state.currentTags));
+      }
     }
   },
   actions: {
     search: debounce(function (context, e = '') {
       const current_value = e && e.target ? e.target.value : e;
-
-      if (context.getters.currentSearchType === 'Champions' && context.getters.champions.length > 0) return;
 
       searchConn.search({
         query: ("" + current_value).trim(),
@@ -97,6 +98,7 @@ export default new Vuex.Store({
       },
         (err, data) => {
           if (err) throw err;
+
           // Handel returned items search
           if (context.getters.currentSearchType === 'Items') {
             let basic_items = [];
@@ -113,15 +115,6 @@ export default new Vuex.Store({
             context.commit('setBasicItems', sortItems(basic_items));
             context.commit('setCombinedItems', sortItems(combined_items));
           }
-          // Handel returned champions search          
-          else if (context.getters.currentSearchType === 'Champions') {
-            data.hits.forEach(c => {
-              context.commit('buildChampionTypeLists', c);
-            });
-
-
-            context.commit('setChampions', data.hits);
-          }
         });
     }, 125),
     filterItems: function ({ commit }, { event, name }) {
@@ -130,6 +123,16 @@ export default new Vuex.Store({
 
       commit('setSearchVal', searchVal === targetVal ? '' : targetVal);
     },
+    filterClasses: function ({ getters, commit }, data) {
+      let cl = {};
+
+      data.forEach(d => {
+        cl[d.text] = getters.classes[d.text];
+      });
+
+      commit('setShowingClasses', cl);
+      if (!Object.keys(cl).length) commit('currentTags', currentTags);
+    }
   }
 })
 

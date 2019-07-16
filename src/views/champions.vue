@@ -5,9 +5,9 @@
         <h2 class="section-title">Champions</h2>
       </div>
       <v-layout row wrap xs12>
-        <v-flex v-for="(champs, name) in championTypeLists" :key="name +'_'+ champs.length">
-          <h2 class="section-title">{{ name }}</h2>
-          <champCard v-for="champ in champs" :key="champ" :champName="champ"></champCard>
+        <v-flex v-for="(cl, key) in showingClasses" :key="cl.name" class="champClass">
+          <h2 @click="addTag(key)" class="section-title">{{ cl.name }}</h2>
+          <champCard v-for="champ in classChamps[key]" :key="champ" :champName="champ"></champCard>
         </v-flex>
       </v-layout>
     </v-container>
@@ -23,38 +23,23 @@ export default {
     champCard
   },
   methods: {
-    filterItems: function(event, name) {
-      this.$store.dispatch("filterItems", { event, name });
-    },
-    search: function(e) {
-      const val = e && e.target ? e.target.value : e;
-      this.$store.dispatch("search", val);
-    },
     clear: function() {
-      // document
-      //   .querySelectorAll(".search-box-container")[0]
-      //   .querySelectorAll("input")[0].value = "";
       this.$store.commit("clear");
+    },
+    addTag: function(tag) {
+      this.$store.commit("addOrRemoveTag", tag);
     }
   },
   computed: {
-    searchVal() {
-      return this.$store.state.searchVal;
+    classChamps() {
+      return this.$store.state.classChamps;
     },
-    champions() {
-      return this.$store.state.champions;
-    },
-    championTypeLists() {
-      return this.$store.state.championTypeLists;
+    showingClasses() {
+      return this.$store.state.showingClasses;
     }
-  },
-  beforeRouteEnter(to, from, next) {
-    next(vm => vm.clear());
   },
   mounted() {
     this.$store.commit("setCurrentSearchType", "Champions");
-    if (this.$store.state.champions.length === 0)
-      this.$store.dispatch("search");
   }
 };
 </script>

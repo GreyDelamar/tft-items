@@ -1,6 +1,6 @@
 <template>
   <section class="item-container">
-    <v-card hover>
+    <v-card>
       <v-card-title primary-title class="item-card">
         <div
           class="champ-img"
