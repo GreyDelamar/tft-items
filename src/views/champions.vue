@@ -5,7 +5,7 @@
         <h2 class="section-title">Champions</h2>
       </div>
       <v-layout row wrap xs12>
-        <v-flex v-for="(cl, key) in showingClasses" :key="cl.name" class="champClass" style="width: 20%">
+        <v-flex v-for="(cl, key) in showingClasses" :key="cl.name" class="champClass">
           <v-tooltip top>
             <template v-slot:activator="{ on }">
               <h2 @click="addTag(key)" v-on="on" class="section-title" >{{ cl.name }}</h2>

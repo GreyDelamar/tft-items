@@ -6,7 +6,7 @@
           class="champ-img"
           :style="'background: url(//ddragon.leagueoflegends.com/cdn/9.13.1/img/champion/'+ champName +'.png) no-repeat; margin-right: 5px;'"
         ></div>
-        <div class="title font-weight-medium" style="flex-grow: 1; display: flex; justify-content: space-between">
+        <div class="title font-weight-medium champClassInfo">
           <div style="display: flex;">
             <v-img src="/gold.png" style="width: 22px; height: 15px;"></v-img> 
             <span>{{ champions[champName].cost }}</span>
