@@ -263,9 +263,10 @@ $color: #303030;
 }
 
 .champClassInfo {
-  min-width: 260px;
   flex-grow: 1;
   display: flex;
   justify-content: space-between;
   margin-top: 5px;
+  width: 100%;
+  max-width: calc(100% - 40px);
 }

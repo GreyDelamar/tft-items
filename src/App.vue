@@ -33,6 +33,8 @@
           v-model="searchVal"
         ></v-text-field>
         <tagSearch v-if="currentSearchType !== 'Items'"></tagSearch>
+        <!-- <tagDropdown :tags="tags" v-if="currentSearchType !== 'Items'"></tagDropdown> -->
+
         <button class="clear-btn" @click="clear()">X</button>
       </v-flex>
     </header>
@@ -63,11 +65,13 @@
 
 <script>
 import tagSearch from "./components/tagSearch";
+import tagDropdown from "./components/tagDropdown";
 
 export default {
   name: "App",
   components: {
-    tagSearch
+    tagSearch,
+    tagDropdown
   },
   data: () => {
     return {
@@ -102,6 +106,14 @@ export default {
     },
     currentSearchType() {
       return this.$store.state.currentSearchType;
+    },
+    tags: {
+      get: function() {
+        return this.$store.state.currentTags;
+      },
+      set: function(val) {
+        this.$store.state.currentTags = val;
+      }
     }
   },
   watch: {
