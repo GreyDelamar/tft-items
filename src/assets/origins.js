@@ -1,9 +1,8 @@
-{
+export default {
     "demon": {
         "key": "demon",
         "name": "Demon",
         "description": "Attacks from Demons have a chance to burn all of an enemy's mana and deal that much true damage.",
-        "accentChampionImage": "https://cdn.blitz.gg/blitz/centered/Aatrox_Splash_Centered_0.jpg",
         "bonuses": [
             {
                 "needed": 2,
@@ -23,7 +22,6 @@
         "key": "dragon",
         "name": "Dragon",
         "description": null,
-        "accentChampionImage": "https://cdn.blitz.gg/blitz/centered/AurelionSol_Splash_Centered_0.jpg",
         "bonuses": [
             {
                 "needed": 2,
@@ -35,7 +33,6 @@
         "key": "exile",
         "name": "Exile",
         "description": null,
-        "accentChampionImage": "https://cdn.blitz.gg/blitz/centered/Yasuo_Splash_Centered_0.jpg",
         "bonuses": [
             {
                 "needed": 1,
@@ -47,7 +44,6 @@
         "key": "glacial",
         "name": "Glacial",
         "description": "On hit, Glacials have a chance to stun for 2s.",
-        "accentChampionImage": "https://cdn.blitz.gg/blitz/centered/Anivia_Splash_Centered_0.jpg",
         "bonuses": [
             {
                 "needed": 2,
@@ -67,7 +63,6 @@
         "key": "imperial",
         "name": "Imperial",
         "description": "Imperials deal Double Damage.",
-        "accentChampionImage": "https://cdn.blitz.gg/blitz/centered/Swain_Splash_Centered_0.jpg",
         "bonuses": [
             {
                 "needed": 2,
@@ -83,7 +78,6 @@
         "key": "noble",
         "name": "Noble",
         "description": "Nobles grant +100 Armor and heal for 35 on hit",
-        "accentChampionImage": "https://cdn.blitz.gg/blitz/centered/Garen_Splash_Centered_0.jpg",
         "bonuses": [
             {
                 "needed": 3,
@@ -99,7 +93,6 @@
         "key": "ninja",
         "name": "Ninja",
         "description": "Ninjas gain a percentage of Attack Damage.",
-        "accentChampionImage": "https://cdn.blitz.gg/blitz/centered/Akali_Splash_Centered_0.jpg",
         "bonuses": [
             {
                 "needed": 1,
@@ -115,7 +108,6 @@
         "key": "pirate",
         "name": "Pirate",
         "description": null,
-        "accentChampionImage": "https://cdn.blitz.gg/blitz/centered/Gangplank_Splash_Centered_0.jpg",
         "bonuses": [
             {
                 "needed": 3,
@@ -127,7 +119,6 @@
         "key": "phantom",
         "name": "Phantom",
         "description": null,
-        "accentChampionImage": "https://cdn.blitz.gg/blitz/centered/Mordekaiser_Splash_Centered_0.jpg",
         "bonuses": [
             {
                 "needed": 2,
@@ -139,7 +130,6 @@
         "key": "robot",
         "name": "Robot",
         "description": null,
-        "accentChampionImage": "https://cdn.blitz.gg/blitz/centered/Blitzcrank_Splash_Centered_0.jpg",
         "bonuses": [
             {
                 "needed": 1,
@@ -151,7 +141,6 @@
         "key": "void",
         "name": "Void",
         "description": null,
-        "accentChampionImage": "https://cdn.blitz.gg/blitz/centered/RekSai_Splash_Centered_0.jpg",
         "bonuses": [
             {
                 "needed": 3,
@@ -163,7 +152,6 @@
         "key": "wild",
         "name": "Wild",
         "description": "Attacks generate stacks of Fury (up to 5). Each stack of Fury grants 7% Attack Speed.",
-        "accentChampionImage": "https://cdn.blitz.gg/blitz/centered/Rengar_Splash_Centered_0.jpg",
         "bonuses": [
             {
                 "needed": 2,
@@ -179,7 +167,6 @@
         "key": "yordle",
         "name": "Yordle",
         "description": "Attacks against ally Yordles have a chance to miss.",
-        "accentChampionImage": "https://cdn.blitz.gg/blitz/centered/Poppy_Splash_Centered_0.jpg",
         "bonuses": [
             {
                 "needed": 3,

@@ -1,6 +1,7 @@
 import Vuex from 'vuex'
 import Vue from 'vue'
 import classes from "./assets/classes.js";
+import origins from "./assets/origins.js";
 import champions from "./assets/champions.js";
 import classChamps from "./assets/classChamps.js";
 import { createTag, createTags } from '@johmun/vue-tags-input';
@@ -11,10 +12,11 @@ Vue.use(Vuex)
 const client = algoliasearch("HH28PKONWC", "f4b07580d6551b52c3128da9e8a74426");
 const searchConn = client.initIndex("tft");
 
+let mixRes = { ...classes, ...origins };
 
 // Possibly start with all the tags in the list first
 let currentTags = [];
-for (const key in classes) {
+for (const key in mixRes) {
   currentTags.push(createTag(key, currentTags));
 }
 
@@ -27,8 +29,8 @@ export default new Vuex.Store({
     searchVal: "",
     searchTypes: ["Items", "Champions"],
     champions,
-    classes,
-    showingClasses: classes,
+    classes: mixRes,
+    showingClasses: mixRes,
     currentTags,
     classChamps,
     tag: ""
